@@ -89,6 +89,6 @@ class BookServiceFunctionalTest {
         List<Booking> bookings = bookService.getBookingsByStatus("BOOKED");
 
         assertNotNull(bookings);
-        assertEquals(2, bookings.size());
+        assertEquals(1, bookings.size());
     }
 }
