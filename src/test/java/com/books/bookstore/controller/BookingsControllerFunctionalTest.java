@@ -80,4 +80,19 @@ class BookingsControllerFunctionalTest {
         assertNotNull(bookings);
         assertEquals(1, bookings.size());
     }
+
+    @Test
+    @Transactional
+    void testCreateBookingWhenBookAlreadyBooked() {
+        bookingsController.createBooking(List.of(book.getId()), user.getId());
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            bookingsController.createBooking(List.of(book.getId()), user.getId());
+        });
+
+        String expectedMessage = "Please select books which are not already booked";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
 }
